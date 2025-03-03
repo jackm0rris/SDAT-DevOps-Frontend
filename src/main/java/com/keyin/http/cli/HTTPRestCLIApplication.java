@@ -163,19 +163,35 @@ public class HTTPRestCLIApplication {
     }
 
 
-    // Lists airports used by passengers
     private void listAirportsUsedByPassengers() {
-        List<Airport> airports = restClient.getAirportsUsedByPassengers();
-        if (airports != null) {
-            System.out.println("\n--- Airports Used by Passengers ---");
-            airports.forEach(airport ->
-                    System.out.printf("ID: %d, Name: %s, Code: %s%n",
-                            airport.getId(), airport.getName(), airport.getCode()));
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter Passenger ID: ");
+        Long passengerId = scanner.nextLong();
+        scanner.nextLine();
+
+        // Fetch passenger data from the RESTClient
+        Passenger passenger = restClient.getPassengerById(passengerId);
+        if (passenger != null) {
+            System.out.println("\n--- Passenger with Airports ---");
+            System.out.printf("ID: %d, Name: %s, Phone: %s%n",
+                    passenger.getId(),
+                    passenger.getFirstName() + " " + passenger.getLastName(),
+                    passenger.getPhoneNumber());
+
+            // List the airports associated with the passenger
+            List<Airport> airports = restClient.getAirportsForPassenger(passengerId);
+            if (airports != null && !airports.isEmpty()) {
+                System.out.println("\nAirports:");
+                airports.forEach(airport ->
+                        System.out.printf("  ID: %d, Name: %s, Code: %s%n",
+                                airport.getId(), airport.getName(), airport.getCode()));
+            } else {
+                System.out.println("  No airports found.");
+            }
         } else {
-            System.out.println("No airports found used by passengers.");
+            System.out.println("Passenger not found.");
         }
     }
-
 
     // Main method to start the application
     public static void main(String[] args) {
