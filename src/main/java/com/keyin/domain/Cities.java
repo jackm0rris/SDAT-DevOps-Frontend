@@ -14,12 +14,9 @@ public class Cities {
     private List<Passenger> passengers;
 
 
-    // Default constructor
+    // Constructors
 
     public Cities() {}
-
-
-    // Constructor to initialize the city with values
 
     public Cities(Long id, String name, String state, int population, List<Airport> airports, List<Passenger> passengers) {
         this.id = id;
@@ -31,7 +28,7 @@ public class Cities {
     }
 
 
-    // Getter and setter methods for each field
+    // Getter and setter methods for every field
 
     public Long getId() {
         return id;

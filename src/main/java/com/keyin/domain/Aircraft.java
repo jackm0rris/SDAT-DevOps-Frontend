@@ -13,7 +13,7 @@ public class Aircraft {
     private List<Passenger> passengers;
     private Airport airport;
 
-    // Below are the Getter and setter methods for each field
+    // Getter and setter methods for every field
 
     public Long getId() {
         return id;

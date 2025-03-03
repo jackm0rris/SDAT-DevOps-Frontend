@@ -41,11 +41,9 @@ public class Passenger {
 
 
 
-    // Default constructor
+    // Constructors
     public Passenger() {}
 
-
-    // Constructor to initialize all fields of the passenger
     public Passenger(Long id, String firstName, String lastName, String phoneNumber, Long cityId, List<Aircraft> aircraft, Airport airport) {
         this.id = id;
         this.firstName = firstName;
@@ -57,7 +55,7 @@ public class Passenger {
     }
 
 
-    // Getter and setter methods for each field
+    // Getter and setter methods for every field
 
     public Long getId() {
         return id;

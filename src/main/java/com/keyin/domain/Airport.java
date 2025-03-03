@@ -8,7 +8,7 @@ public class Airport {
     private String code;
     private Cities city;
 
-    // Getter and setter methods for each field
+    // Getter and setter methods for every field
 
     public Long getId() {
         return id;
