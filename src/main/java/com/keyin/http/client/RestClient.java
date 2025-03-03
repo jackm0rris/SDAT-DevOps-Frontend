@@ -15,13 +15,10 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.List;
 
-
-
 public class RESTClient {
-    private static HttpClient httpClient = null; // HTTP Client for sending requests
-    private static ObjectMapper objectMapper = null; // Serializing and Deserializing JSON Info
-    private static String baseUrl = ""; // Base URl
-
+    private static HttpClient httpClient = null; 
+    private static ObjectMapper objectMapper = null;
+    private static String baseUrl = "";
 
     // Constructor initializes the HTTP client, ObjectMapper, and sets the base URL
     public RESTClient(String baseUrl) {
@@ -35,20 +32,11 @@ public class RESTClient {
         return objectMapper;
     }
 
-
-    // Fetching Lists for each aircraft/passenger/airport etc by their ID/operations
-
-
-    public List<Aircraft> getAircraftByPassengerId(Long passengerId) {
-        String endpoint = "/passengers/" + passengerId + "/aircraft";
-        return fetchList(endpoint, new TypeReference<List<Aircraft>>() {});
-    }
-
+    // Fetching Lists for each aircraft/passenger/airport
 
     public List<Airport> getAirportsForAircraftOperations() {
-        return fetchList("/airports", new TypeReference<List<Airport>>() {});
+        return fetchList("/cities/airports-for-operations", new TypeReference<List<Airport>>() {});
     }
-
 
     public Passenger getPassengerById(Long id) {
         return fetchObject("/passengers/" + id, Passenger.class);
@@ -58,28 +46,12 @@ public class RESTClient {
         return fetchList("/airports", new TypeReference<List<Airport>>() {});
     }
 
-    public List<Passenger> getPassengerByCityId(Long cityId) {
-        return fetchList("/cities/" + cityId + "/passengers", new TypeReference<List<Passenger>>() {});
-    }
-
-
     public List<Airport> getAirportsByCitiesId(Long cityId) {
         return fetchList("/cities/" + cityId + "/airports", new TypeReference<List<Airport>>() {});
     }
 
-
     public Cities getCitiesById(Long cityId) {
         return fetchObject("/cities/" + cityId, Cities.class);
-    }
-
-
-    public Airport getAirportById(Long airportId) {
-        return fetchObject("/airports/" + airportId, Airport.class);
-    }
-
-
-    public Aircraft getAircraftById(Long aircraftId) {
-        return fetchObject("/aircrafts/" + aircraftId, Aircraft.class);
     }
 
 
@@ -87,17 +59,20 @@ public class RESTClient {
         return fetchList("/aircrafts", new TypeReference<List<Aircraft>>() {});
     }
 
-
     public List<Cities> getAllCities() {
         return fetchList("/cities", new TypeReference<List<Cities>>() {});
     }
-
 
     public List<Passenger> getPassengers() {
         return fetchList("/passengers", new TypeReference<List<Passenger>>() {});
     }
 
+    public List<Airport> getAirportsForPassenger(Long passengerId) {
+        String endpoint = "/passengers/" + passengerId + "/airports";
+        return fetchList(endpoint, new TypeReference<List<Airport>>() {});
+    }
 
+    // Helper method to fetch a single object from an endpoint
     private static <T> T fetchObject(String endpoint, Class<T> clazz) {
         try {
             HttpRequest request = HttpRequest.newBuilder()
@@ -121,8 +96,6 @@ public class RESTClient {
             return null;
         }
     }
-
-
 
     // Helper method to fetch a list of objects from an endpoint
     private <T> List<T> fetchList(String endpoint, TypeReference<List<T>> typeReference) {
@@ -150,11 +123,5 @@ public class RESTClient {
             System.err.println("Exception occurred: " + e.getMessage());
             return null;
         }
-    }
-
-
-    // Placeholder method to fetch airports used by passengers
-    public List<Airport> getAirportsUsedByPassengers() {
-        return List.of();
     }
 }
