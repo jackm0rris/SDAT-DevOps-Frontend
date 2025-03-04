@@ -27,13 +27,12 @@ public class HTTPRestCLIApplication {
         while (true) {
             // This Displays the menu options in the terminal
             System.out.println("\n--- Main Menu ---");
-            System.out.println("1. List Passengers");
-            System.out.println("2. List Aircraft");
-            System.out.println("3. List Passengers with Aircraft Info");
-            System.out.println("4. List Cities with Airport Info");
-            System.out.println("5. List Airports for Aircraft Operations");
-            System.out.println("6. List Airports Used by Passengers");
-            System.out.println("7. Exit");
+            System.out.println("1. List Aircraft");
+            System.out.println("2. List Passengers with Aircraft Info");
+            System.out.println("3. List Cities with Airport Info");
+            System.out.println("4. List Airports for Aircraft Operations");
+            System.out.println("5. List Airports Used by Passengers");
+            System.out.println("6. Exit");
             System.out.print("Enter your choice: ");
 
             int choice = scanner.nextInt();
@@ -41,13 +40,12 @@ public class HTTPRestCLIApplication {
 
             // Each Case based on user's choice
             switch (choice) {
-                case 1 -> listPassengers();
-                case 2 -> listAircraft();
-                case 3 -> listPassengersWithAircraft();
-                case 4 -> listCitiesWithAirports();
-                case 5 -> listAirportsForAircraftOperations();
-                case 6 -> listAirportsUsedByPassengers();
-                case 7 -> {
+                case 1 -> listAircraft();
+                case 2 -> listPassengersWithAircraft();
+                case 3 -> listCitiesWithAirports();
+                case 4 -> listAirportsForAircraftOperations();
+                case 5 -> listAirportsUsedByPassengers();
+                case 6 -> {
                     System.out.println("Exiting...");
                     return;
                 }
@@ -117,23 +115,6 @@ public class HTTPRestCLIApplication {
             System.out.println("City not found.");
         }
     }
-
-
-    // Lists all passengers in system
-    private void listPassengers() {
-        List<Passenger> passengers = restClient.getPassengers();
-        if (passengers != null) {
-            System.out.println("\n--- Passengers ---");
-            passengers.forEach(passenger ->
-                    System.out.printf("ID: %d, Name: %s, Phone: %s%n",
-                            passenger.getId(),
-                            passenger.getFirstName() + " " + passenger.getLastName(),
-                            passenger.getPhoneNumber()));
-        } else {
-            System.out.println("No passengers found.");
-        }
-    }
-
 
     // Lists all aircraft in the system
     private void listAircraft() {
